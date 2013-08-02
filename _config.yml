@@ -2,10 +2,10 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://yoursite.com
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
+url: http://ecerruti.github.io
+title: Random Musing and Thoughts
+subtitle: Things I have found myself repeating, and other ramblings.
+author: Edward Cerruti
 simple_search: http://google.com/search
 description:
 
