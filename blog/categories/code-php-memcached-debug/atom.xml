@@ -4,7 +4,7 @@
   <title><![CDATA[Category: code php memcached debug | Random Musing and Thoughts]]></title>
   <link href="http://ecerruti.github.io/blog/categories/code-php-memcached-debug/atom.xml" rel="self"/>
   <link href="http://ecerruti.github.io/"/>
-  <updated>2013-08-02T13:46:45-07:00</updated>
+  <updated>2013-08-02T16:09:10-07:00</updated>
   <id>http://ecerruti.github.io/</id>
   <author>
     <name><![CDATA[Edward Cerruti]]></name>
@@ -83,10 +83,6 @@ stats items #lists the slabs, example output. STAT items:3:number 1</p>
 <p>stats cachedump 3 100
 version #version of memcached
 ```</p></blockquote>
-
-<p>There are a bunch of others</p>
-
-<blockquote><p>Not mentioned is &lsquo;gets&rsquo; which returns a CAS token, if there.</p></blockquote>
 ]]></content>
   </entry>
   
