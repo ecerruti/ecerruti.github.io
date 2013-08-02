@@ -64,7 +64,3 @@ Quick overview of the most useful telnet commands
 > version #version of memcached
 ```
 
-There are a bunch of others
-
-> Not mentioned is 'gets' which returns a CAS token, if there.
-
