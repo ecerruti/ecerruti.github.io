@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: code php memcached debug | Random Musing and Thoughts]]></title>
+  <link href="http://ecerruti.github.io/blog/categories/code-php-memcached-debug/atom.xml" rel="self"/>
+  <link href="http://ecerruti.github.io/"/>
+  <updated>2013-08-02T09:01:37-07:00</updated>
+  <id>http://ecerruti.github.io/</id>
+  <author>
+    <name><![CDATA[Edward Cerruti]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Memcached Debugging]]></title>
+    <link href="http://ecerruti.github.io/blog/2013/08/01/memcached-debugging/"/>
+    <updated>2013-08-01T14:03:00-07:00</updated>
+    <id>http://ecerruti.github.io/blog/2013/08/01/memcached-debugging</id>
+    <content type="html"><![CDATA[<p>Here is a useful PHP tool for debugging Memcached. You will need this file &ndash; <a href="https://slalom.atlassian.net/wiki/download/attachments/3047465/memcache.php?version=1&amp;modificationDate=1369252658701&amp;api=v2">memcache.php</a>.</p>
+
+<h2>Mac</h2>
+
+<p>Setup</p>
+
+<blockquote><p>If you do not have Apache running see the post <a href="/blog/2013/08/01/enable-apache-on-a-mac">Enable Apache on a Mac</a>. Alternatively, try <a href="http://www.mamp.info/">MAMP</a> &ndash; adjust paths as necessary.</p></blockquote>
+
+<p>```
+$ cd ~/
+$ mkdir Sites</p>
+
+<h1>move memcache.php to ~/Sites/</h1>
+
+<p>$ cd /etc/apache2
+$ sudo vi httpd.conf
+```</p>
+
+<p>Search for &lsquo;php&rsquo; &ndash; this line specifically</p>
+
+<p>```</p>
+
+<h1>LoadModule php5_module libexec/apache2/libphp5.so</h1>
+
+<p>```</p>
+
+<p>Uncomment it (remove the leading &lsquo;#&rsquo;) and save file.</p>
+
+<p>Put <code>memcache.php</code> in <code>~/Sites/</code>. To hit it</p>
+
+<p><code>
+http://localhost/~&lt;username&gt;/memcache.php
+</code></p>
+
+<p>memcache.php has a username/password setup</p>
+
+<p><code>
+username: memcache
+password: password
+</code></p>
+
+<h2>Windows</h2>
+
+<p>If on Windows and not running Apache take a look at <a href="http://www.wamp.info/">WAMP</a>. In either case drop the PHP file in the appropriate place.</p>
+
+<h2>Telnet Debugging</h2>
+
+<p>For telnet to memcached</p>
+
+<p><code>
+$ telnet localhost 11211
+</code></p>
+
+<p>Quick overview of the most useful telnet commands</p>
+
+<p>```</p>
+
+<blockquote><p>stats #lists a bunch-o-stuff
+stats items #lists the slabs, example output. STAT items:3:number 1</p>
+
+<h1>list the items in slab id 3 up to 100 items (doesn&rsquo;t seem to work if you leave off the last number, although it can be any number)</h1>
+
+<p>stats cachedump 3 100
+version #version of memcached
+```</p></blockquote>
+
+<p>There are a bunch of others</p>
+
+<blockquote><p>Not mentioned is &lsquo;gets&rsquo; which returns a CAS token, if there.</p></blockquote>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: code java debug | Random Musing and Thoughts]]></title>
+  <link href="http://ecerruti.github.io/blog/categories/code-java-debug/atom.xml" rel="self"/>
+  <link href="http://ecerruti.github.io/"/>
+  <updated>2013-08-02T09:01:37-07:00</updated>
+  <id>http://ecerruti.github.io/</id>
+  <author>
+    <name><![CDATA[Edward Cerruti]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[HyperSQL Debugging]]></title>
+    <link href="http://ecerruti.github.io/blog/2013/08/01/hypersql-debugging/"/>
+    <updated>2013-08-01T09:57:00-07:00</updated>
+    <id>http://ecerruti.github.io/blog/2013/08/01/hypersql-debugging</id>
+    <content type="html"><![CDATA[<p>This is one manner in which to debug HyperSQL, there are others, but this is probably the most straightforward. Since HyperSQL runs in memory you must be in debug mode with a breakpoint set in your application.</p>
+
+<blockquote><p>The breakpoint <strong>MUST BE</strong> configured to just stop the current thread, otherwise the HyperSQL browser will lock up since all threads will be stopped.</p></blockquote>
+
+<ul>
+<li>Set a breakpoint in your application &ndash; make sure it is right after where you want to examine data</li>
+<li>Bring up the code evaluation window for your IDE
+
+<ul>
+<li>Eclipse: Display Mode</li>
+<li>IntelliJ: Evaluate Expression | Code Fragment Evaluation</li>
+</ul>
+</li>
+<li>Paste in one of the following and evaluate (the Swing one has a nicer UI)
+
+<ul>
+<li>You can also paste one of these directly into your test class, e.g. in a before method, a test method, etc, but that may mess things up for others if you commit the code</li>
+</ul>
+</li>
+</ul>
+
+
+<p>```
+org.hsqldb.util.DatabaseManagerSwing.main(new String[] {</p>
+
+<pre><code>"--url",  "jdbc:hsqldb:mem:testdb", "--noexit"
+</code></pre>
+
+<p>});
+```</p>
+
+<p>```
+org.hsqldb.util.DatabaseManager.main(new String[] {</p>
+
+<pre><code>"--url",  "jdbc:hsqldb:mem:testdb", "--noexit"
+</code></pre>
+
+<p>});
+```</p>
+
+<p>As long as you are stopped at the breakpoint the DB browser will remain. You can continue to other breakpoints, but if you reach the end of the debug session the DB browser will exit.</p>
+
+<p>One alternative is to run HyperSQL in server mode, you&rsquo;ll still need to be in debug mode with a breakpoint in your application, but the advantage is you can use your DB client of preference to attach to HyperSQL. The connection string would look something like this (adjust accordingly)</p>
+
+<p><code>
+jdbc.url=jdbc:hsqldb:mem:testdb;sql.enforce_strict_size=true
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>

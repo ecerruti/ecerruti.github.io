@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: git svn vcs mac | Random Musing and Thoughts]]></title>
+  <link href="http://ecerruti.github.io/blog/categories/git-svn-vcs-mac/atom.xml" rel="self"/>
+  <link href="http://ecerruti.github.io/"/>
+  <updated>2013-08-02T09:01:37-07:00</updated>
+  <id>http://ecerruti.github.io/</id>
+  <author>
+    <name><![CDATA[Edward Cerruti]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[SVN to Git Migration]]></title>
+    <link href="http://ecerruti.github.io/blog/2013/08/01/svn-to-git-migration/"/>
+    <updated>2013-08-01T11:41:00-07:00</updated>
+    <id>http://ecerruti.github.io/blog/2013/08/01/svn-to-git-migration</id>
+    <content type="html"><![CDATA[<p>This is the process to migrate an SVN repository to a Git repository. Adjust paths to your particular scenario.</p>
+
+<p>Create a Git repository, but do not add anything to it. It must be bare. For example, if on GitHub do <strong>NOT</strong> add any ignore or readme files.</p>
+
+<blockquote><p>It is <strong>IMPORTANT</strong> that you do <strong>NOT</strong> go through the steps to clone the newly created repository or add anything to it. We are going to import the migrated SVN repository into it.</p></blockquote>
+
+<p>Now we need the SVN authors in nice Git format &ndash; store for safekeeping as it will be used later</p>
+
+<p><code>
+$ cd /path/to/svn/repo
+$ svn log --quiet | grep -E "r[0-9]+ \| .+ \|" | awk '{print $3}' | sort | uniq &gt; authors.txt
+</code></p>
+
+<blockquote><p>To cover scenarios ambiguous scenarios add a &lsquo;no author&rsquo; with an email of your choosing.</p></blockquote>
+
+<p>Somewhere safe make a temporary working area</p>
+
+<p><code>
+$ mkdir temp &amp;&amp; cd temp
+</code></p>
+
+<p>Pre-prep the SVN repository (locally), this has some additional options as an example</p>
+
+<p><code>
+$ cd /somewhere/safe/temp
+$ git svn clone https://svn.example.com/svn/path/to/repo -A ~/authors.txt --no-metadata --stdlayout --no-minimize-url --ignore-paths="^branches" --tags="tags/releases" --tags="tags/ci-builds"
+</code></p>
+
+<p>Create a bare Git repository</p>
+
+<p>```
+$ cd /somewhere/safe/temp</p>
+
+<h1>if already in the temp dir you can just use &lsquo;baremig.git&rsquo;</h1>
+
+<p>$ git init &mdash;bare /somewhere/safe/temp/baremig.git
+$ cd temp/baremig.git
+$ git symbolic-ref HEAD refs/heads/trunk
+```</p>
+
+<p>Push the pre-prep SVN repository to the newly created baremig.git</p>
+
+<p><code>
+$ cd /somewhere/safe/temp/OHS
+$ git remote add bare /somewhere/safe/temp/baremig.git
+$ git config remote.bare.push 'refs/remotes/*:refs/heads/*'
+$ git push bare
+</code></p>
+
+<p>Rename &lsquo;trunk&rsquo; to &lsquo;master&rsquo;</p>
+
+<p><code>
+$ cd /somewhere/safe/temp/baremig.git
+$ git branch -m trunk master
+</code></p>
+
+<p>Migrate the SVN tags</p>
+
+<p><code>
+$ cd /path/to/temp/new-bare.git
+$ git for-each-ref --format='%(refname)' refs/heads/tags | cut -d / -f 4 | while read ref; do git tag "$ref" "refs/heads/tags/$ref"; git branch -D "tags/$ref"; done
+</code></p>
+
+<p>Push the bare repository</p>
+
+<p><code>
+$ cd /somewhere/safe/temp/baremig.git
+$ git remote add origin ssh://git@github.com/&lt;name&gt;/&lt;repo&gt;.git
+$ git push -u origin --all
+</code></p>
+
+<blockquote><p>If the SSH &lsquo;git remote add&rsquo; command does not work, try this one</p>
+
+<p><code>$ git remote add origin git@github.com:&lt;username&gt;/&lt;repo&gt;.git</code></p></blockquote>
+
+<p>Push the tags to</p>
+
+<p><code>
+$ git push --tags
+</code></p>
+
+<p>Now go check it out. Once verified you can delete the local temp directory you worked from.</p>
+
+<h2>Tips, Tricks and Hints</h2>
+
+<h3>SVN Command Line Error</h3>
+
+<p>If using the latest Xcode (version 4.6.2) and command line tools (/usr/bin/svn) with a Subversion version of 1.6.18 and you receive errors trying to check out the SVN repository</p>
+
+<ul>
+<li>Go to <a href="http://mxcl.github.io/homebrew/">Homebrew</a> and install Subversion &ndash; use this svn (/usr/local/svn) instead of /usr/bin/svn &ndash; that is make sure /usr/local/bin comes before /usr/bin in your PATH</li>
+</ul>
+
+
+<h3>Git SVN Command Line Error</h3>
+
+<p>When running the &lsquo;git svn&rsquo; command and it errors out immediately you probably have to update the Perl SVN::Core CPAN module</p>
+
+<ul>
+<li>It will create ~/.cpan as root which can then chwon -R once done (I think it&rsquo;s OK to remove it, though, but probably best to wait until everything is completed)</li>
+</ul>
+
+
+<p><code>
+$ sudo cpan SVN::Core
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>

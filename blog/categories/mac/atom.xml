@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: mac | Random Musing and Thoughts]]></title>
+  <link href="http://ecerruti.github.io/blog/categories/mac/atom.xml" rel="self"/>
+  <link href="http://ecerruti.github.io/"/>
+  <updated>2013-08-02T09:01:37-07:00</updated>
+  <id>http://ecerruti.github.io/</id>
+  <author>
+    <name><![CDATA[Edward Cerruti]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Prevent Desktop from Reverting to Default Images after a Mac Restart]]></title>
+    <link href="http://ecerruti.github.io/blog/2013/08/01/prevent-desktop-from-reverting-to-default-images-after-a-mac-restart/"/>
+    <updated>2013-08-01T09:21:00-07:00</updated>
+    <id>http://ecerruti.github.io/blog/2013/08/01/prevent-desktop-from-reverting-to-default-images-after-a-mac-restart</id>
+    <content type="html"><![CDATA[<p>If your Mac reverts your desktop images back to the defaults after a restart try the following</p>
+
+<p>```
+$ rm -rf ~/Library/Preferences/com.apple.desktop.plist</p>
+
+<h1>This file may or maynot exist</h1>
+
+<p>$ rm -rf ~/Library/Preferences/com.apple.desktop.plist.lockfile
+```
+Reboot. The desktop images will be the default, so go ahead and reset them to what you want. Restart and they should remain.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Enable Apache on a Mac]]></title>
+    <link href="http://ecerruti.github.io/blog/2013/08/01/enable-apache-on-a-mac/"/>
+    <updated>2013-08-01T09:09:00-07:00</updated>
+    <id>http://ecerruti.github.io/blog/2013/08/01/enable-apache-on-a-mac</id>
+    <content type="html"><![CDATA[<p>Create the Apache conf file for your user</p>
+
+<p><code>
+$ sudo cat &gt; /etc/apache2/users/`whoami`.conf
+</code></p>
+
+<p>Add the following to that file (change <code>&lt;username&gt;</code> to your Mac&rsquo;s username)</p>
+
+<p>```xml
+<Directory "/Users/<username>/Sites/&ldquo;></p>
+
+<pre><code> Options Indexes MultiViews
+ AllowOverride All
+ Order allow,deny
+ Allow from all
+</code></pre>
+
+<p></Directory>
+```</p>
+
+<p>Complete the setup (this is where your sites will go)</p>
+
+<p><code>
+$ mkdir ~/Sites
+</code></p>
+
+<p>Start Apache</p>
+
+<p><code>
+$ sudo /usr/sbin/apachectl start
+</code></p>
+
+<p>This will also setup Apache to relaunch on system restarts.</p>
+
+<p>To stop Apache, as well as disabling it for relaunch on system restarts,</p>
+
+<p><code>
+$ sudo /usr/sbin/apachectl stop
+</code></p>
+
+<p>To restart a running Apache</p>
+
+<p><code>
+$ sudo /usr/sbin/apachectl restart
+</code></p>
+
+<p>Access your sites as</p>
+
+<p><code>
+http://localhost/~&lt;username&gt;/
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>

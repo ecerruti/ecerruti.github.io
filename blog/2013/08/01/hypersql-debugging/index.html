@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>HyperSQL Debugging - Random Musing and Thoughts</title>
+  <meta name="author" content="Edward Cerruti">
+
+  
+  <meta name="description" content="This is one manner in which to debug HyperSQL, there are others, but this is probably the most straightforward. Since HyperSQL runs in memory you &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ecerruti.github.io/blog/2013/08/01/hypersql-debugging">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Random Musing and Thoughts" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Random Musing and Thoughts</a></h1>
+  
+    <h2>Things I have found myself repeating, and other ramblings.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ecerruti.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">HyperSQL Debugging</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-01T09:57:00-07:00" pubdate data-updated="true">Aug 1<span>st</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>This is one manner in which to debug HyperSQL, there are others, but this is probably the most straightforward. Since HyperSQL runs in memory you must be in debug mode with a breakpoint set in your application.</p>
+
+<blockquote><p>The breakpoint <strong>MUST BE</strong> configured to just stop the current thread, otherwise the HyperSQL browser will lock up since all threads will be stopped.</p></blockquote>
+
+<ul>
+<li>Set a breakpoint in your application &ndash; make sure it is right after where you want to examine data</li>
+<li>Bring up the code evaluation window for your IDE
+
+<ul>
+<li>Eclipse: Display Mode</li>
+<li>IntelliJ: Evaluate Expression | Code Fragment Evaluation</li>
+</ul>
+</li>
+<li>Paste in one of the following and evaluate (the Swing one has a nicer UI)
+
+<ul>
+<li>You can also paste one of these directly into your test class, e.g. in a before method, a test method, etc, but that may mess things up for others if you commit the code</li>
+</ul>
+</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>org.hsqldb.util.DatabaseManagerSwing.main(new String[] {
+</span><span class='line'>    "--url",  "jdbc:hsqldb:mem:testdb", "--noexit"
+</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>org.hsqldb.util.DatabaseManager.main(new String[] {
+</span><span class='line'>    "--url",  "jdbc:hsqldb:mem:testdb", "--noexit"
+</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As long as you are stopped at the breakpoint the DB browser will remain. You can continue to other breakpoints, but if you reach the end of the debug session the DB browser will exit.</p>
+
+<p>One alternative is to run HyperSQL in server mode, you&rsquo;ll still need to be in debug mode with a breakpoint in your application, but the advantage is you can use your DB client of preference to attach to HyperSQL. The connection string would look something like this (adjust accordingly)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>jdbc.url=jdbc:hsqldb:mem:testdb;sql.enforce_strict_size=true</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Edward Cerruti</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-01T09:57:00-07:00" pubdate data-updated="true">Aug 1<span>st</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/code-java-debug/'>code java debug</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ecerruti.github.io/blog/2013/08/01/hypersql-debugging/" data-via="" data-counturl="http://ecerruti.github.io/blog/2013/08/01/hypersql-debugging/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/08/01/prevent-desktop-from-reverting-to-default-images-after-a-mac-restart/" title="Previous Post: Prevent Desktop from Reverting to Default Images after a Mac Restart">&laquo; Prevent Desktop from Reverting to Default Images after a Mac Restart</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/08/01/svn-to-git-migration/" title="Next Post: SVN to Git Migration">SVN to Git Migration &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/08/01/memcached-debugging/">Memcached Debugging</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/01/svn-to-git-migration/">SVN to Git Migration</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/01/hypersql-debugging/">HyperSQL Debugging</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/01/prevent-desktop-from-reverting-to-default-images-after-a-mac-restart/">Prevent Desktop From Reverting to Default Images After a Mac Restart</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/01/enable-apache-on-a-mac/">Enable Apache on a Mac</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Edward Cerruti -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

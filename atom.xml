@@ -1,106 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Random Musing and Thoughts</title>
-  <meta name="author" content="Edward Cerruti">
-
-  
-  <meta name="description" content="Here is a useful PHP tool for debugging Memcached. You will need this file &ndash; memcache.php. Mac Setup If you do not have Apache running see the &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://ecerruti.github.io">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="Random Musing and Thoughts" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Random Musing and Thoughts</a></h1>
-  
-    <h2>Things I have found myself repeating, and other ramblings.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:ecerruti.github.io" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
+  <title><![CDATA[Random Musing and Thoughts]]></title>
+  <link href="http://ecerruti.github.io/atom.xml" rel="self"/>
+  <link href="http://ecerruti.github.io/"/>
+  <updated>2013-08-02T09:01:37-07:00</updated>
+  <id>http://ecerruti.github.io/</id>
+  <author>
+    <name><![CDATA[Edward Cerruti]]></name>
     
-      <h1 class="entry-title"><a href="/blog/2013/08/01/memcached-debugging/">Memcached Debugging</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
   
-
-
-<time datetime="2013-08-01T14:03:00-07:00" pubdate data-updated="true">Aug 1<span>st</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Here is a useful PHP tool for debugging Memcached. You will need this file &ndash; <a href="https://slalom.atlassian.net/wiki/download/attachments/3047465/memcache.php?version=1&amp;modificationDate=1369252658701&amp;api=v2">memcache.php</a>.</p>
+  <entry>
+    <title type="html"><![CDATA[Memcached Debugging]]></title>
+    <link href="http://ecerruti.github.io/blog/2013/08/01/memcached-debugging/"/>
+    <updated>2013-08-01T14:03:00-07:00</updated>
+    <id>http://ecerruti.github.io/blog/2013/08/01/memcached-debugging</id>
+    <content type="html"><![CDATA[<p>Here is a useful PHP tool for debugging Memcached. You will need this file &ndash; <a href="https://slalom.atlassian.net/wiki/download/attachments/3047465/memcache.php?version=1&amp;modificationDate=1369252658701&amp;api=v2">memcache.php</a>.</p>
 
 <h2>Mac</h2>
 
 <p>Setup</p>
 
-<blockquote><p>If you do not have Apache running see the post <a href="/blog/2013/08/01/enable-apache-on-a-mac">Enable Apache on a Mac</a>. Alternatively, try <a href="http://www.mamp.info/">MAMP</a> &ndash; adjust paths as necessary.</p></blockquote>
+<blockquote><p>If you do not have Apache running see the post <a href="http://ecerruti.github.io/blog/2013/08/01/enable-apache-on-a-mac">Enable Apache on a Mac</a>. Alternatively, try <a href="http://www.mamp.info/">MAMP</a> &ndash; adjust paths as necessary.</p></blockquote>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -165,42 +89,15 @@
 <p>There are a bunch of others</p>
 
 <blockquote><p>Not mentioned is &lsquo;gets&rsquo; which returns a CAS token, if there.</p></blockquote>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/01/svn-to-git-migration/">SVN to Git Migration</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-01T11:41:00-07:00" pubdate data-updated="true">Aug 1<span>st</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>This is the process to migrate an SVN repository to a Git repository. Adjust paths to your particular scenario.</p>
+  <entry>
+    <title type="html"><![CDATA[SVN to Git Migration]]></title>
+    <link href="http://ecerruti.github.io/blog/2013/08/01/svn-to-git-migration/"/>
+    <updated>2013-08-01T11:41:00-07:00</updated>
+    <id>http://ecerruti.github.io/blog/2013/08/01/svn-to-git-migration</id>
+    <content type="html"><![CDATA[<p>This is the process to migrate an SVN repository to a Git repository. Adjust paths to your particular scenario.</p>
 
 <p>Create a Git repository, but do not add anything to it. It must be bare. For example, if on GitHub do <strong>NOT</strong> add any ignore or readme files.</p>
 
@@ -319,42 +216,15 @@
 
 
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/01/hypersql-debugging/">HyperSQL Debugging</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-01T09:57:00-07:00" pubdate data-updated="true">Aug 1<span>st</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>This is one manner in which to debug HyperSQL, there are others, but this is probably the most straightforward. Since HyperSQL runs in memory you must be in debug mode with a breakpoint set in your application.</p>
+  <entry>
+    <title type="html"><![CDATA[HyperSQL Debugging]]></title>
+    <link href="http://ecerruti.github.io/blog/2013/08/01/hypersql-debugging/"/>
+    <updated>2013-08-01T09:57:00-07:00</updated>
+    <id>http://ecerruti.github.io/blog/2013/08/01/hypersql-debugging</id>
+    <content type="html"><![CDATA[<p>This is one manner in which to debug HyperSQL, there are others, but this is probably the most straightforward. Since HyperSQL runs in memory you must be in debug mode with a breakpoint set in your application.</p>
 
 <blockquote><p>The breakpoint <strong>MUST BE</strong> configured to just stop the current thread, otherwise the HyperSQL browser will lock up since all threads will be stopped.</p></blockquote>
 
@@ -403,42 +273,15 @@
 
 
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/01/prevent-desktop-from-reverting-to-default-images-after-a-mac-restart/">Prevent Desktop From Reverting to Default Images After a Mac Restart</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-01T09:21:00-07:00" pubdate data-updated="true">Aug 1<span>st</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>If your Mac reverts your desktop images back to the defaults after a restart try the following</p>
+  <entry>
+    <title type="html"><![CDATA[Prevent Desktop from Reverting to Default Images after a Mac Restart]]></title>
+    <link href="http://ecerruti.github.io/blog/2013/08/01/prevent-desktop-from-reverting-to-default-images-after-a-mac-restart/"/>
+    <updated>2013-08-01T09:21:00-07:00</updated>
+    <id>http://ecerruti.github.io/blog/2013/08/01/prevent-desktop-from-reverting-to-default-images-after-a-mac-restart</id>
+    <content type="html"><![CDATA[<p>If your Mac reverts your desktop images back to the defaults after a restart try the following</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -449,42 +292,15 @@
 
 
 <p>Reboot. The desktop images will be the default, so go ahead and reset them to what you want. Restart and they should remain.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/01/enable-apache-on-a-mac/">Enable Apache on a Mac</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-01T09:09:00-07:00" pubdate data-updated="true">Aug 1<span>st</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Create the Apache conf file for your user</p>
+  <entry>
+    <title type="html"><![CDATA[Enable Apache on a Mac]]></title>
+    <link href="http://ecerruti.github.io/blog/2013/08/01/enable-apache-on-a-mac/"/>
+    <updated>2013-08-01T09:09:00-07:00</updated>
+    <id>http://ecerruti.github.io/blog/2013/08/01/enable-apache-on-a-mac</id>
+    <content type="html"><![CDATA[<p>Create the Apache conf file for your user</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo cat &gt; /etc/apache2/users/`whoami`.conf</span></code></pre></td></tr></table></div></figure>
@@ -545,84 +361,7 @@
 
 
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2013/08/01/memcached-debugging/">Memcached Debugging</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/08/01/svn-to-git-migration/">SVN to Git Migration</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/08/01/hypersql-debugging/">HyperSQL Debugging</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/08/01/prevent-desktop-from-reverting-to-default-images-after-a-mac-restart/">Prevent Desktop From Reverting to Default Images After a Mac Restart</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/08/01/enable-apache-on-a-mac/">Enable Apache on a Mac</a>
-      </li>
-    
-  </ul>
-</section>
-
-
-
-
-
-  
-</aside>
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Edward Cerruti -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
-</html>
+</feed>
