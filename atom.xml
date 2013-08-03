@@ -4,7 +4,7 @@
   <title><![CDATA[Tidbits]]></title>
   <link href="http://ecerruti.github.io/atom.xml" rel="self"/>
   <link href="http://ecerruti.github.io/"/>
-  <updated>2013-08-03T11:10:43-07:00</updated>
+  <updated>2013-08-03T13:26:57-07:00</updated>
   <id>http://ecerruti.github.io/</id>
   <author>
     <name><![CDATA[Edward Cerruti]]></name>
@@ -27,7 +27,7 @@
 <p>Create a new SSH key to use for the work account</p>
 
 <blockquote><ul>
-<li>You can also use <code>-t dsa</code>, if you do just replace all references to <code>rsa</code> with <code>dsa</code>.</li>
+<li>You can also use <code>-t dsa</code>, if you do, replace all references to <code>rsa</code> with <code>dsa</code>.</li>
 <li>Be careful <strong>NOT</strong> to overwrite your existing SSH key. Give this new key a unique name, e.g. <code>~/.ssh/id_rsa_WORK</code>.</li>
 </ul>
 </blockquote>
