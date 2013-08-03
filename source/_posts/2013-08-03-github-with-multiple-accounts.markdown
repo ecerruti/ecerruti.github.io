@@ -12,7 +12,7 @@ So, given that your existing SSH keys are your personal ones we'll make the seco
 ## Create a New SSH Key
 Create a new SSH key to use for the work account
 
-> * You can also use ```-t dsa```, if you do just replace all references to ```rsa``` with ```dsa```.
+> * You can also use ```-t dsa```, if you do, replace all references to ```rsa``` with ```dsa```.
 > * Be careful **NOT** to overwrite your existing SSH key. Give this new key a unique name, e.g. ```~/.ssh/id_rsa_WORK```.
 
 ```
