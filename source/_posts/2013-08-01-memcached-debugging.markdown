@@ -3,7 +3,7 @@ layout: post
 title: "Memcached Debugging"
 date: 2013-08-01 14:03
 comments: true
-categories: [code php memcached debug]
+categories: [php memcached debug]
 ---
 Here is a useful PHP tool for debugging Memcached. You will need this file - [memcache.php](https://slalom.atlassian.net/wiki/download/attachments/3047465/memcache.php?version=1&modificationDate=1369252658701&api=v2).
 

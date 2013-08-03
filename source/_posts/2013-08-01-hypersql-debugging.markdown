@@ -3,7 +3,7 @@ layout: post
 title: "HyperSQL Debugging"
 date: 2013-08-01 09:57
 comments: true
-categories: [code java debug]
+categories: [java debug]
 ---
 This is one manner in which to debug HyperSQL, there are others, but this is probably the most straightforward. Since HyperSQL runs in memory you must be in debug mode with a breakpoint set in your application.
 
