@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Random Musing and Thoughts]]></title>
+  <title><![CDATA[Tidbits]]></title>
   <link href="http://ecerruti.github.io/atom.xml" rel="self"/>
   <link href="http://ecerruti.github.io/"/>
-  <updated>2013-08-02T16:09:10-07:00</updated>
+  <updated>2013-08-03T11:10:43-07:00</updated>
   <id>http://ecerruti.github.io/</id>
   <author>
     <name><![CDATA[Edward Cerruti]]></name>
@@ -12,6 +12,77 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[GitHub with Multiple Accounts]]></title>
+    <link href="http://ecerruti.github.io/blog/2013/08/03/github-with-multiple-accounts/"/>
+    <updated>2013-08-03T11:03:00-07:00</updated>
+    <id>http://ecerruti.github.io/blog/2013/08/03/github-with-multiple-accounts</id>
+    <content type="html"><![CDATA[<p>When you need to work with more than one account on GitHub you&rsquo;ll need to get a little creative. This situation usually arises when you want to keep your personal account separate from your work account. The process is fairly straightforward and involves exercising SSH.</p>
+
+<p>So, given that your existing SSH keys are your personal ones we&rsquo;ll make the second set for work.</p>
+
+<h2>Create a New SSH Key</h2>
+
+<p>Create a new SSH key to use for the work account</p>
+
+<blockquote><ul>
+<li>You can also use <code>-t dsa</code>, if you do just replace all references to <code>rsa</code> with <code>dsa</code>.</li>
+<li>Be careful <strong>NOT</strong> to overwrite your existing SSH key. Give this new key a unique name, e.g. <code>~/.ssh/id_rsa_WORK</code>.</li>
+</ul>
+</blockquote>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ssh-keygen -t rsa -C "your-email-address"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Add a new SSH key entry to your GitHub account by copying and pasting the contents of <code>~/.ssh/id_rsa_WORK.pub</code> into the SSH key field of your account.</p>
+
+<p>If you are running an authentication agent you will need to add this new SSH key to it.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ssh-add ~/.ssh/id_rsa_WORK</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Edit the SSH Config File</h2>
+
+<p>If you do not already have the file <code>~/.ssh/config</code> create it and add something similar to the following</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># Personal
+</span><span class='line'>Host github.com
+</span><span class='line'>  HostName github.com
+</span><span class='line'>  User git
+</span><span class='line'>  IdentityFile ~/.ssh/id_rsa
+</span><span class='line'>
+</span><span class='line'># Work
+</span><span class='line'>Host github-WORK
+</span><span class='line'>  HostName github.com
+</span><span class='line'>  User git
+</span><span class='line'>  IdentityFile ~/.ssh/id_rsa_WORK</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Sample Usage</h2>
+
+<p>In a nutshell, use the <code>Host</code> entry in your SSH commands instead of the actual host and SSH will use the correct information. For example, the following will use the new identity key.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git clone git@github-WORK:&lt;account&gt;/&lt;repo&gt;.git</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Memcached Debugging]]></title>

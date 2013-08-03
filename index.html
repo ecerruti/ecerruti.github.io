@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Random Musing and Thoughts</title>
+  <title>Tidbits</title>
   <meta name="author" content="Edward Cerruti">
 
   
-  <meta name="description" content="Here is a useful PHP tool for debugging Memcached. You will need this file &ndash; memcache.php. Mac Setup If you do not have Apache running see the &hellip;">
+  <meta name="description" content="When you need to work with more than one account on GitHub you&rsquo;ll need to get a little creative. This situation usually arises when you want to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +21,7 @@
   <link rel="canonical" href="http://ecerruti.github.io">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="Random Musing and Thoughts" type="application/atom+xml">
+  <link href="/atom.xml" rel="alternate" title="Tidbits" type="application/atom+xml">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
@@ -36,7 +36,7 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <h1><a href="/">Random Musing and Thoughts</a></h1>
+  <h1><a href="/">Tidbits</a></h1>
   
     <h2>Things I have found myself repeating, and other ramblings.</h2>
   
@@ -65,6 +65,104 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/03/github-with-multiple-accounts/">GitHub With Multiple Accounts</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-03T11:03:00-07:00" pubdate data-updated="true">Aug 3<span>rd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>When you need to work with more than one account on GitHub you&rsquo;ll need to get a little creative. This situation usually arises when you want to keep your personal account separate from your work account. The process is fairly straightforward and involves exercising SSH.</p>
+
+<p>So, given that your existing SSH keys are your personal ones we&rsquo;ll make the second set for work.</p>
+
+<h2>Create a New SSH Key</h2>
+
+<p>Create a new SSH key to use for the work account</p>
+
+<blockquote><ul>
+<li>You can also use <code>-t dsa</code>, if you do just replace all references to <code>rsa</code> with <code>dsa</code>.</li>
+<li>Be careful <strong>NOT</strong> to overwrite your existing SSH key. Give this new key a unique name, e.g. <code>~/.ssh/id_rsa_WORK</code>.</li>
+</ul>
+</blockquote>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ssh-keygen -t rsa -C "your-email-address"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Add a new SSH key entry to your GitHub account by copying and pasting the contents of <code>~/.ssh/id_rsa_WORK.pub</code> into the SSH key field of your account.</p>
+
+<p>If you are running an authentication agent you will need to add this new SSH key to it.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ssh-add ~/.ssh/id_rsa_WORK</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Edit the SSH Config File</h2>
+
+<p>If you do not already have the file <code>~/.ssh/config</code> create it and add something similar to the following</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># Personal
+</span><span class='line'>Host github.com
+</span><span class='line'>  HostName github.com
+</span><span class='line'>  User git
+</span><span class='line'>  IdentityFile ~/.ssh/id_rsa
+</span><span class='line'>
+</span><span class='line'># Work
+</span><span class='line'>Host github-WORK
+</span><span class='line'>  HostName github.com
+</span><span class='line'>  User git
+</span><span class='line'>  IdentityFile ~/.ssh/id_rsa_WORK</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Sample Usage</h2>
+
+<p>In a nutshell, use the <code>Host</code> entry in your SSH commands instead of the actual host and SSH will use the correct information. For example, the following will use the new identity key.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git clone git@github-WORK:&lt;account&gt;/&lt;repo&gt;.git</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -563,6 +661,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/08/03/github-with-multiple-accounts/">GitHub With Multiple Accounts</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/08/01/memcached-debugging/">Memcached Debugging</a>
       </li>
     
@@ -576,10 +678,6 @@
     
       <li class="post">
         <a href="/blog/2013/08/01/prevent-desktop-from-reverting-to-default-images-after-a-mac-restart/">Prevent Desktop From Reverting to Default Images After a Mac Restart</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/08/01/enable-apache-on-a-mac/">Enable Apache on a Mac</a>
       </li>
     
   </ul>

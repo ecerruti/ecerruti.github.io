@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>HyperSQL Debugging - Tidbits</title>
+  <title>GitHub with Multiple Accounts - Tidbits</title>
   <meta name="author" content="Edward Cerruti">
 
   
-  <meta name="description" content="This is one manner in which to debug HyperSQL, there are others, but this is probably the most straightforward. Since HyperSQL runs in memory you &hellip;">
+  <meta name="description" content="When you need to work with more than one account on GitHub you&rsquo;ll need to get a little creative. This situation usually arises when you want to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://ecerruti.github.io/blog/2013/08/01/hypersql-debugging">
+  <link rel="canonical" href="http://ecerruti.github.io/blog/2013/08/03/github-with-multiple-accounts">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Tidbits" type="application/atom+xml">
@@ -68,7 +68,7 @@
   
   <header>
     
-      <h1 class="entry-title">HyperSQL Debugging</h1>
+      <h1 class="entry-title">GitHub With Multiple Accounts</h1>
     
     
       <p class="meta">
@@ -84,59 +84,73 @@
   
 
 
-<time datetime="2013-08-01T09:57:00-07:00" pubdate data-updated="true">Aug 1<span>st</span>, 2013</time>
+<time datetime="2013-08-03T11:03:00-07:00" pubdate data-updated="true">Aug 3<span>rd</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>This is one manner in which to debug HyperSQL, there are others, but this is probably the most straightforward. Since HyperSQL runs in memory you must be in debug mode with a breakpoint set in your application.</p>
+<div class="entry-content"><p>When you need to work with more than one account on GitHub you&rsquo;ll need to get a little creative. This situation usually arises when you want to keep your personal account separate from your work account. The process is fairly straightforward and involves exercising SSH.</p>
 
-<blockquote><p>The breakpoint <strong>MUST BE</strong> configured to just stop the current thread, otherwise the HyperSQL browser will lock up since all threads will be stopped.</p></blockquote>
+<p>So, given that your existing SSH keys are your personal ones we&rsquo;ll make the second set for work.</p>
 
-<ul>
-<li>Set a breakpoint in your application &ndash; make sure it is right after where you want to examine data</li>
-<li>Bring up the code evaluation window for your IDE
+<h2>Create a New SSH Key</h2>
 
-<ul>
-<li>Eclipse: Display Mode</li>
-<li>IntelliJ: Evaluate Expression | Code Fragment Evaluation</li>
+<p>Create a new SSH key to use for the work account</p>
+
+<blockquote><ul>
+<li>You can also use <code>-t dsa</code>, if you do just replace all references to <code>rsa</code> with <code>dsa</code>.</li>
+<li>Be careful <strong>NOT</strong> to overwrite your existing SSH key. Give this new key a unique name, e.g. <code>~/.ssh/id_rsa_WORK</code>.</li>
 </ul>
-</li>
-<li>Paste in one of the following and evaluate (the Swing one has a nicer UI)
+</blockquote>
 
-<ul>
-<li>You can also paste one of these directly into your test class, e.g. in a before method, a test method, etc, but that may mess things up for others if you commit the code</li>
-</ul>
-</li>
-</ul>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ssh-keygen -t rsa -C "your-email-address"</span></code></pre></td></tr></table></div></figure>
 
+
+<p>Add a new SSH key entry to your GitHub account by copying and pasting the contents of <code>~/.ssh/id_rsa_WORK.pub</code> into the SSH key field of your account.</p>
+
+<p>If you are running an authentication agent you will need to add this new SSH key to it.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ssh-add ~/.ssh/id_rsa_WORK</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Edit the SSH Config File</h2>
+
+<p>If you do not already have the file <code>~/.ssh/config</code> create it and add something similar to the following</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>org.hsqldb.util.DatabaseManagerSwing.main(new String[] {
-</span><span class='line'>    "--url",  "jdbc:hsqldb:mem:testdb", "--noexit"
-</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># Personal
+</span><span class='line'>Host github.com
+</span><span class='line'>  HostName github.com
+</span><span class='line'>  User git
+</span><span class='line'>  IdentityFile ~/.ssh/id_rsa
+</span><span class='line'>
+</span><span class='line'># Work
+</span><span class='line'>Host github-WORK
+</span><span class='line'>  HostName github.com
+</span><span class='line'>  User git
+</span><span class='line'>  IdentityFile ~/.ssh/id_rsa_WORK</span></code></pre></td></tr></table></div></figure>
 
 
+<h2>Sample Usage</h2>
 
+<p>In a nutshell, use the <code>Host</code> entry in your SSH commands instead of the actual host and SSH will use the correct information. For example, the following will use the new identity key.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>org.hsqldb.util.DatabaseManager.main(new String[] {
-</span><span class='line'>    "--url",  "jdbc:hsqldb:mem:testdb", "--noexit"
-</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
-
-
-<p>As long as you are stopped at the breakpoint the DB browser will remain. You can continue to other breakpoints, but if you reach the end of the debug session the DB browser will exit.</p>
-
-<p>One alternative is to run HyperSQL in server mode, you&rsquo;ll still need to be in debug mode with a breakpoint in your application, but the advantage is you can use your DB client of preference to attach to HyperSQL. The connection string would look something like this (adjust accordingly)</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>jdbc.url=jdbc:hsqldb:mem:testdb;sql.enforce_strict_size=true</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git clone git@github-WORK:&lt;account&gt;/&lt;repo&gt;.git</span></code></pre></td></tr></table></div></figure>
 
 
 
@@ -162,12 +176,12 @@
   
 
 
-<time datetime="2013-08-01T09:57:00-07:00" pubdate data-updated="true">Aug 1<span>st</span>, 2013</time>
+<time datetime="2013-08-03T11:03:00-07:00" pubdate data-updated="true">Aug 3<span>rd</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/java-debug/'>java debug</a>
+    <a class='category' href='/blog/categories/git-github-ssh/'>git github ssh</a>
   
 </span>
 
@@ -176,7 +190,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ecerruti.github.io/blog/2013/08/01/hypersql-debugging/" data-via="" data-counturl="http://ecerruti.github.io/blog/2013/08/01/hypersql-debugging/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ecerruti.github.io/blog/2013/08/03/github-with-multiple-accounts/" data-via="" data-counturl="http://ecerruti.github.io/blog/2013/08/03/github-with-multiple-accounts/" >Tweet</a>
   
   
   
@@ -185,10 +199,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/08/01/prevent-desktop-from-reverting-to-default-images-after-a-mac-restart/" title="Previous Post: Prevent Desktop from Reverting to Default Images after a Mac Restart">&laquo; Prevent Desktop from Reverting to Default Images after a Mac Restart</a>
+        <a class="basic-alignment left" href="/blog/2013/08/01/memcached-debugging/" title="Previous Post: Memcached Debugging">&laquo; Memcached Debugging</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/08/01/svn-to-git-migration/" title="Next Post: SVN to Git Migration">SVN to Git Migration &raquo;</a>
       
     </p>
   </footer>
